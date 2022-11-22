@@ -1,5 +1,12 @@
-import { render } from "react-dom";
+import { useState } from "react";
+import styled from 'styled-components'
+
 export default function GetABook() {
+
+    const [author, setAuthor] = useState([]);
+    const [title, setTitle] = useState([]);
+    const [cover, setCover] = useState([])
+    const [link, setLink] = useState([])
 
     async function submitHandler(e) {
         e.preventDefault()
@@ -18,15 +25,35 @@ export default function GetABook() {
         console.log(list)
         console.log(randomId)
         console.log(randomBook)
-
+        // setItems(randomBook);
+        setAuthor(randomBook.author);
+        setTitle(randomBook.title);
+        setCover(randomBook.cover);
+        setLink(randomBook.link);
     }
 
     return (
         <>
-            <form onSubmit={submitHandler}>
-                <input type='submit' value='Get a book' />
-            </form>
+            <SForm onSubmit={submitHandler}>
+                <SInput type='submit' value='Get a book' />
+                {<div>
+                    <a href={link}><img src={cover} alt={title} /></a>
+                </div>}
+            </SForm>
         </>
     )
 
 }
+
+const SForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+`
+const SInput = styled.input`
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`
